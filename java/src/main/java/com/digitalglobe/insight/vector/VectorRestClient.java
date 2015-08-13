@@ -481,7 +481,7 @@ public class VectorRestClient
     // returning 500 items in GeoJSON format with only the name and geometry
     // returned for each item.
     String queryRequest = appBase
-        + "/app/broker/vector/api/vectors/query/items"
+        + "/api/vectors/query/items"
         + "?" + bboxParams + "&q=technical&count=500";
 
     // when we get a collection of items it's a JSON array
