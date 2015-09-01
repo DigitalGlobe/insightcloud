@@ -92,7 +92,7 @@ public class VectorRestExample
     // returned for each item.
     String queryRequest = appBase
         + "/api/vectors/query/items"
-        + "?" + bboxParams + "&q=technical AND college&count=500";
+        + "?" + bboxParams + "&q=technical%20AND%20college&count=500";
 
     // when we get a collection of items it's a JSON array
     String itemsJson = client.executeGet( queryRequest );
