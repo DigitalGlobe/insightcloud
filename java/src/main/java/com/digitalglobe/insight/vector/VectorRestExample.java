@@ -1,5 +1,7 @@
 package com.digitalglobe.insight.vector;
 
+import com.digitalglobe.insight.vector.client.VectorRestClient;
+import com.digitalglobe.insight.vector.client.VectorRestClientFactory;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;

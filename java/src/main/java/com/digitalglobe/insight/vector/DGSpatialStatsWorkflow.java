@@ -5,6 +5,8 @@
  */
 package com.digitalglobe.insight.vector;
 
+import com.digitalglobe.insight.vector.client.VectorRestClient;
+import com.digitalglobe.insight.vector.client.VectorRestClientFactory;
 import com.google.gson.Gson;
 import com.vividsolutions.jts.geom.Coordinate;
 import com.vividsolutions.jts.geom.GeometryFactory;

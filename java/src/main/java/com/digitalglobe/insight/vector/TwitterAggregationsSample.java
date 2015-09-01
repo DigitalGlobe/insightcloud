@@ -1,5 +1,6 @@
 package com.digitalglobe.insight.vector;
 
+import com.digitalglobe.insight.vector.client.CasAuthenticatedVectorRestClient;
 import com.google.gson.Gson;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;

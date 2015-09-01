@@ -1,4 +1,6 @@
-package com.digitalglobe.insight.vector;
+package com.digitalglobe.insight.vector.client;
+
+import com.digitalglobe.insight.vector.ServiceProperties;
 
 import java.io.IOException;
 

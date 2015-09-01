@@ -1,4 +1,4 @@
-package com.digitalglobe.insight.vector;
+package com.digitalglobe.insight.vector.client;
 
 import java.io.IOException;
 import java.util.Map;
