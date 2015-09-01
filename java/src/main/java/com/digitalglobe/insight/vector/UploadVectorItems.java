@@ -16,27 +16,13 @@ public class UploadVectorItems
 
     ServiceProperties props = new ServiceProperties( args[0] );
 
-    // authentication information
-    String authService = props.getAuthService();
-    String username = props.getUserName();
-    String password = props.getPassword();
-
     // the base URL for accessing the vector service
     String appService = props.getAppService();
     String urlBase = props.getUrlBase();
     String appBase = appService + urlBase;
 
         // set up the client
-    CasAuthenticatedVectorRestClient client = new CasAuthenticatedVectorRestClient();
-    client.setAuthService( authService );
-    client.setAppService( appService );
-
-    System.out.println( "Auth service: " + authService );
-    System.out.println( "App service: " + appService );
-    System.out.println( "App base: " + appBase );
-
-    System.out.println( "Authenticating with the application. . . ." );
-    client.authenticate( username, password );
+    VectorRestClient client = VectorRestClientFactory.getCasAuthenticatedClient( props );
 
     // send a single item to upload
     System.out.println( "Sending single-item upload. . . .");
@@ -118,7 +104,7 @@ public class UploadVectorItems
     client.logout();
   }
 
-  public static void handleItemPaths( String response, String appBase, CasAuthenticatedVectorRestClient client ) throws IOException
+  public static void handleItemPaths( String response, String appBase, VectorRestClient client ) throws IOException
   {
     // the POST response gives us an array of paths to retrieve the created items
     JSONArray itemPaths = (JSONArray) JSONValue.parse( response );

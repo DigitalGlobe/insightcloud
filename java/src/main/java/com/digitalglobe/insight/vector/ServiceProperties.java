@@ -11,7 +11,15 @@ public class ServiceProperties
 
   public ServiceProperties( String propsFile ) throws IOException
   {
-    loadAndValidateServiceProperties( propsFile );
+    Properties props = loadProperties( propsFile );
+    validateServiceProperties( props );
+    this.props = props;
+  }
+
+  public ServiceProperties( Properties props )
+  {
+    validateServiceProperties( props );
+    this.props = props;
   }
 
   public String getProperty( String key )
@@ -43,10 +51,9 @@ public class ServiceProperties
     return props.getProperty( "urlBase", "" );
   }
 
-  public Properties loadAndValidateServiceProperties( String propsFile )
-      throws IOException
+  public Properties loadProperties ( String propsFile ) throws IOException
   {
-    props = new Properties();
+    Properties props = new Properties();
     FileInputStream fIn = null;
     try
     {
@@ -61,6 +68,11 @@ public class ServiceProperties
         catch ( Exception e ) { /* do nothing */ }
       }
     }
+    return props;
+  }
+
+  public boolean validateServiceProperties( Properties props )
+  {
     if ( ! props.containsKey( "authService" ) )
     {
       throw new RuntimeException( "Auth service must be configured." );
@@ -77,7 +89,6 @@ public class ServiceProperties
     {
       throw new RuntimeException( "Password must be configured." );
     }
-
-    return props;
+    return true;
   }
 }

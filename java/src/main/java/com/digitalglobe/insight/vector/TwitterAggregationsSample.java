@@ -38,6 +38,8 @@ public class TwitterAggregationsSample {
     String appBase = appService + urlBase;
 
     // set up the client
+    // NOTE: this example requires a CAS-authenticated client b/c it's not
+    // hitting the vector index . . . it's hitting the old SMA services
     CasAuthenticatedVectorRestClient client = new CasAuthenticatedVectorRestClient();
     client.setAuthService( authService );
     client.setAppService( appService );

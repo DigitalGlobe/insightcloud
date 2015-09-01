@@ -40,23 +40,13 @@ public class DGSpatialStatsWorkflow {
 
       ServiceProperties props = new ServiceProperties(args[0]);
 
-      // authentication information
-      String authService = props.getAuthService();
-      String username = "un";
-      String password = "pw";
-
       // the base URL for accessing the vector service
       String appService = props.getAppService();
       String urlBase = props.getUrlBase();
       String appBase = appService + urlBase;
 
       // set up the client
-      CasAuthenticatedVectorRestClient client = new CasAuthenticatedVectorRestClient();
-      client.setAuthService(authService);
-      client.setAppService(appService);
-
-      System.out.println("Authenticating with the application. . . .");
-      client.authenticate(username, password);
+      VectorRestClient client = VectorRestClientFactory.getCasAuthenticatedClient( props );
 
       Gson gson = new Gson();
       SortedSet<String> cols = new TreeSet<>();
@@ -214,23 +204,13 @@ public class DGSpatialStatsWorkflow {
 
       ServiceProperties props = new ServiceProperties(args[0]);
 
-      // authentication information
-      String authService = props.getAuthService();
-      String username = "un";
-      String password = "pw";
-
       // the base URL for accessing the vector service
       String appService = props.getAppService();
       String urlBase = props.getUrlBase();
       String appBase = appService + urlBase;
 
       // set up the client
-      CasAuthenticatedVectorRestClient client = new CasAuthenticatedVectorRestClient();
-      client.setAuthService(authService);
-      client.setAppService(appService);
-
-      System.out.println("Authenticating with the application. . . .");
-      client.authenticate(username, password);
+      VectorRestClient client = VectorRestClientFactory.getCasAuthenticatedClient( props );
 
       Gson gson = new Gson();
       SortedSet<String> cols = new TreeSet<>();
