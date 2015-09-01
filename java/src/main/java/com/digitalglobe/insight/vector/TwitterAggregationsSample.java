@@ -38,7 +38,7 @@ public class TwitterAggregationsSample {
     String appBase = appService + urlBase;
 
     // set up the client
-    VectorRestClient client = new VectorRestClient();
+    CasAuthenticatedVectorRestClient client = new CasAuthenticatedVectorRestClient();
     client.setAuthService( authService );
     client.setAppService( appService );
 

@@ -1,26 +1,11 @@
 package com.digitalglobe.insight.vector;
 
 import com.google.gson.Gson;
-import org.apache.commons.httpclient.Header;
-import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.NameValuePair;
-import org.apache.commons.httpclient.methods.DeleteMethod;
-import org.apache.commons.httpclient.methods.GetMethod;
-import org.apache.commons.httpclient.methods.PostMethod;
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.net.URLEncoder;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Properties;
-import java.util.logging.Level;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * An example class showing possible ways of interacting with the UVI REST API
@@ -52,7 +37,7 @@ public class DGVectorTreeBuilder {
     String appBase = appService + urlBase;
 
     // set up the client
-    VectorRestClient client = new VectorRestClient();
+    CasAuthenticatedVectorRestClient client = new CasAuthenticatedVectorRestClient();
     client.setAuthService( authService );
     client.setAppService( appService );
 

@@ -14,23 +14,18 @@ import org.json.simple.JSONValue;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.OutputStream;
-import java.rmi.server.ExportException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Properties;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
  * An example class showing possible ways of interacting with the UVI REST API
  */
-public class VectorRestClient
+public class CasAuthenticatedVectorRestClient
 {
-  protected static final Logger log = LoggerFactory.getLogger( VectorRestClient.class );
+  protected static final Logger log = LoggerFactory.getLogger( CasAuthenticatedVectorRestClient.class );
 
   public static class VectorPagingResponse
   {
@@ -413,7 +408,7 @@ public class VectorRestClient
     String appBase = appService + urlBase;
 
     // set up the client
-    VectorRestClient client = new VectorRestClient();
+    CasAuthenticatedVectorRestClient client = new CasAuthenticatedVectorRestClient();
     client.setAuthService( authService );
     client.setAppService( appService );
 

@@ -27,7 +27,7 @@ public class UploadVectorItems
     String appBase = appService + urlBase;
 
         // set up the client
-    VectorRestClient client = new VectorRestClient();
+    CasAuthenticatedVectorRestClient client = new CasAuthenticatedVectorRestClient();
     client.setAuthService( authService );
     client.setAppService( appService );
 
@@ -118,7 +118,7 @@ public class UploadVectorItems
     client.logout();
   }
 
-  public static void handleItemPaths( String response, String appBase, VectorRestClient client ) throws IOException
+  public static void handleItemPaths( String response, String appBase, CasAuthenticatedVectorRestClient client ) throws IOException
   {
     // the POST response gives us an array of paths to retrieve the created items
     JSONArray itemPaths = (JSONArray) JSONValue.parse( response );
