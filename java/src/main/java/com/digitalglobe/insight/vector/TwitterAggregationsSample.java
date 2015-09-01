@@ -1,6 +1,7 @@
 package com.digitalglobe.insight.vector;
 
 import com.digitalglobe.insight.vector.client.CasAuthenticatedVectorRestClient;
+import com.digitalglobe.insight.vector.client.VectorRestClientFactory;
 import com.google.gson.Gson;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
@@ -28,11 +29,6 @@ public class TwitterAggregationsSample {
 
     ServiceProperties props = new ServiceProperties( args[0] );
 
-    // authentication information
-    String authService = props.getAuthService();
-    String username = "un";
-    String password = "pw";
-
     // the base URL for accessing the vector service
     String appService = props.getAppService();
     String urlBase = props.getUrlBase();
@@ -41,12 +37,8 @@ public class TwitterAggregationsSample {
     // set up the client
     // NOTE: this example requires a CAS-authenticated client b/c it's not
     // hitting the vector index . . . it's hitting the old SMA services
-    CasAuthenticatedVectorRestClient client = new CasAuthenticatedVectorRestClient();
-    client.setAuthService( authService );
-    client.setAppService( appService );
-
-    System.out.println( "Authenticating with the application. . . ." );
-    client.authenticate(username, password);
+    CasAuthenticatedVectorRestClient client =
+        (CasAuthenticatedVectorRestClient) VectorRestClientFactory.getCasAuthenticatedClient( props );
 
     Gson gson = new Gson();
 

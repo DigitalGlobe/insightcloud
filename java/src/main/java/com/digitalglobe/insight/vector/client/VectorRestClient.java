@@ -5,10 +5,6 @@ import java.util.Map;
 
 public interface VectorRestClient
 {
-  void setAppService( String appService );
-
-  void setAuthService( String authService );
-
   String executeGet( String url ) throws IOException;
 
   String executePost( String url, String body ) throws IOException;
@@ -19,9 +15,7 @@ public interface VectorRestClient
 
   void logout();
 
-  void authenticate( String username, String password ) throws IOException;
-
-  public static class VectorPagingResponse
+  class VectorPagingResponse
   {
     private int status;
     private String body;

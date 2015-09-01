@@ -11,10 +11,7 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
 import java.io.IOException;
-import java.util.Collection;
-import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 public class OAuth2VectorRestClient implements VectorRestClient
 {
@@ -42,18 +39,6 @@ public class OAuth2VectorRestClient implements VectorRestClient
     resource.setUsername( username );
     resource.setPassword( password );
     this.restTemplate = new OAuth2RestTemplate( resource );
-  }
-
-  @Override
-  public void setAppService( String appService )
-  {
-    //TODO: Implement this method.
-  }
-
-  @Override
-  public void setAuthService( String authService )
-  {
-    //TODO: Implement this method.
   }
 
   @Override
@@ -133,12 +118,6 @@ public class OAuth2VectorRestClient implements VectorRestClient
 
   @Override
   public void logout()
-  {
-    //TODO: Implement this method.
-  }
-
-  @Override
-  public void authenticate( String username, String password ) throws IOException
   {
     //TODO: Implement this method.
   }

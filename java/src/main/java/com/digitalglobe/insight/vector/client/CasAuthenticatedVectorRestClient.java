@@ -1,5 +1,6 @@
 package com.digitalglobe.insight.vector.client;
 
+import com.digitalglobe.insight.vector.ServiceProperties;
 import org.apache.commons.httpclient.Header;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.NameValuePair;
@@ -12,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -28,26 +30,19 @@ public class CasAuthenticatedVectorRestClient implements VectorRestClient
   private String ticketGrantingTicket;
   private HttpClient httpClient = new HttpClient();
 
-  /**
-   * Sets the base URL for the application service
-   *
-   * @param appService the app service URL
-   */
-  @Override
-  public void setAppService( String appService )
+  public CasAuthenticatedVectorRestClient( ServiceProperties props )
+      throws IOException
   {
-    this.appService = appService;
-  }
+    // authentication information
+    this.authService = props.getAuthService();
+    String username = props.getUserName();
+    String password = props.getPassword();
 
-  /**
-   * Sets the base URL for the CAS auth service
-   *
-   * @param authService the CAS service URL
-   */
-  @Override
-  public void setAuthService( String authService )
-  {
-    this.authService = authService;
+    // the base URL for accessing the vector service
+    this.appService = props.getAppService();
+
+    System.out.println( "Authenticating with the CAS application. . . ." );
+    this.authenticate( username, password );
   }
 
   /**
@@ -330,8 +325,7 @@ public class CasAuthenticatedVectorRestClient implements VectorRestClient
    * @param username the username with which to authenticate
    * @param password the username's password
    */
-  @Override
-  public void authenticate( String username, String password ) throws IOException
+  private void authenticate( String username, String password ) throws IOException
   {
     // get a ticket-granting ticket from CAS
     this.ticketGrantingTicket = this.getTicketGrantingTicket( authService, username, password );
