@@ -7,6 +7,8 @@ import java.util.Properties;
 
 public class ServiceProperties
 {
+  public enum AuthType { CAS, OAUTH2 }
+
   private Properties props;
 
   public ServiceProperties( String propsFile ) throws IOException
@@ -44,6 +46,11 @@ public class ServiceProperties
   public String getPassword()
   {
     return props.getProperty( "password" );
+  }
+
+  public AuthType getAuthType()
+  {
+    return AuthType.valueOf( props.getProperty( "auth.type", "OAUTH2" ).toUpperCase() );
   }
 
   public String getUrlBase()

@@ -24,7 +24,7 @@ public class UploadVectorItems
     String appBase = appService + urlBase;
 
         // set up the client
-    VectorRestClient client = VectorRestClientFactory.getCasAuthenticatedClient( props );
+    VectorRestClient client = VectorRestClientFactory.getClient( props );
 
     // send a single item to upload
     System.out.println( "Sending single-item upload. . . .");
@@ -37,8 +37,8 @@ public class UploadVectorItems
         "        }," +
         "        \"properties\": {" +
         "            \"name\" : \"Jabberwocky\"," +
-        "            \"ingestSource\" : \"Test\"," +
-        "            \"itemType\" : \"Test item\"," +
+        "            \"ingest_source\" : \"Test\"," +
+        "            \"item_type\" : \"Test item\"," +
         "            \"text\" : \"'Twas brillig and the slithy toves. . . .\"," +
         "            \"source\" : \"Lewis Carroll\"," +
         "            \"attributes\" : {" +
@@ -66,8 +66,8 @@ public class UploadVectorItems
       "        }," +
       "        \"properties\": {" +
       "            \"name\" : \"Jabberwocky, line 1\"," +
-      "            \"ingestSource\" : \"Test\"," +
-      "            \"itemType\" : \"Test item\"," +
+      "            \"ingest_source\" : \"Test\"," +
+      "            \"item_type\" : \"Test item\"," +
       "            \"text\" : \"'Twas brillig and the slithy toves\"," +
       "            \"source\" : \"Lewis Carroll\"," +
       "            \"attributes\" : {" +
@@ -85,8 +85,8 @@ public class UploadVectorItems
       "        }," +
       "        \"properties\": {" +
       "            \"name\" : \"Jabberwocky, line 2\"," +
-      "            \"ingestSource\" : \"Test\"," +
-      "            \"itemType\" : \"Test item\"," +
+      "            \"ingest_source\" : \"Test\"," +
+      "            \"item_type\" : \"Test item\"," +
       "            \"text\" : \"did gyre and gimbel in the wabe\"," +
       "            \"source\" : \"Lewis Carroll\"," +
       "            \"attributes\" : {" +

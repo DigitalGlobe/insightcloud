@@ -32,7 +32,7 @@ public class VectorRestExample
     String appBase = appService + urlBase;
 
     // set up the client
-    VectorRestClient client = VectorRestClientFactory.getCasAuthenticatedClient( props );
+    VectorRestClient client = VectorRestClientFactory.getClient( props );
 
     // Set up a bounding box to search
     String bboxParams = "left=-145.936399490872&upper=51.6307842812699"
@@ -92,10 +92,11 @@ public class VectorRestExample
     // returned for each item.
     String queryRequest = appBase
         + "/api/vectors/query/items"
-        + "?" + bboxParams + "&q=technical&count=500";
+        + "?" + bboxParams + "&q=technical AND college&count=500";
 
     // when we get a collection of items it's a JSON array
     String itemsJson = client.executeGet( queryRequest );
+    System.out.println( itemsJson );
     JSONArray items = (JSONArray) JSONValue.parse( itemsJson );
     System.out.println( "Returned " + items.size() + " items." );
 
