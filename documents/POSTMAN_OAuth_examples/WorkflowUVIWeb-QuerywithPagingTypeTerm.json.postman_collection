@@ -1,0 +1,75 @@
+{
+	"id": "d77df4c8-1938-6968-c1a0-0fbf3357ddb7",
+	"name": "Workflow: UVI Web - Query with Paging: Type & Term",
+	"timestamp": 1435249784562,
+	"order": [
+		"5cc1dded-435a-c9ba-9c73-e2e96128ed9d",
+		"2c90c554-ce5a-7cf5-e80b-d91aa502ae96",
+		"223011ff-7efa-f05f-65c0-7aa1d32ce6a4"
+	],
+	"owner": 0,
+	"hasRequests": true,
+	"requests": [
+		{
+			"id": "223011ff-7efa-f05f-65c0-7aa1d32ce6a4",
+			"headers": "Authorization: Bearer {{token}}\n",
+			"url": "{{environment}}/insight-vector/api/vectors/paging",
+			"preRequestScript": "",
+			"pathVariables": {},
+			"method": "POST",
+			"data": [
+				{
+					"key": "pagingId",
+					"value": "Copy the pagingId from Get Paging ID here - no quotes",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "urlencoded",
+			"version": 2,
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1441029349117,
+			"name": "3. Retrieve Page of Vector Items",
+			"description": "Using Paging Id from Get Paging ID API call, retrieve a page of available vector items.",
+			"collectionId": "d77df4c8-1938-6968-c1a0-0fbf3357ddb7"
+		},
+		{
+			"id": "2c90c554-ce5a-7cf5-e80b-d91aa502ae96",
+			"headers": "Authorization: Bearer {{token}}\n",
+			"url": "{{environment}}/insight-vector/api/vectors/query/Roads/paging?q=highway&left=32.3964&right=37.2633&upper=42.631&lower=34.7208&ttl=5m&count=500",
+			"preRequestScript": "",
+			"pathVariables": {},
+			"method": "GET",
+			"data": [],
+			"dataMode": "params",
+			"version": 2,
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1438954480958,
+			"name": "2. Get Paging ID",
+			"description": "Submit request for paging ID to be used for subsequent paging requests. Call based on vector type and query term.",
+			"collectionId": "d77df4c8-1938-6968-c1a0-0fbf3357ddb7"
+		},
+		{
+			"id": "5cc1dded-435a-c9ba-9c73-e2e96128ed9d",
+			"headers": "Authorization: Bearer {{token}}\n",
+			"url": "{{environment}}/insight-vector/api/vectors/query/types?q=highway&left=32.3964&right=37.2633&upper=42.631&lower=34.7208",
+			"preRequestScript": "",
+			"pathVariables": {},
+			"method": "GET",
+			"data": [],
+			"dataMode": "params",
+			"version": 2,
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1438954476709,
+			"name": "1. List Vector Types",
+			"description": "List available vector types for a given query term.",
+			"collectionId": "d77df4c8-1938-6968-c1a0-0fbf3357ddb7"
+		}
+	]
+}

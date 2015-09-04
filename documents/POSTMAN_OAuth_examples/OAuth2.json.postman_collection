@@ -1,0 +1,68 @@
+{
+	"id": "8c363c34-3ceb-7f8a-9a0e-291aef8ece52",
+	"name": "OAuth2",
+	"timestamp": 1438279381048,
+	"order": [
+		"55235fcd-4f82-d037-9781-98b68be2111f",
+		"fbce8b39-adc4-6885-76f4-f199c6771399"
+	],
+	"owner": 0,
+	"hasRequests": true,
+	"requests": [
+		{
+			"id": "55235fcd-4f82-d037-9781-98b68be2111f",
+			"headers": "Authorization: Basic {{basic_auth_client_keys}}\n",
+			"url": "{{environment}}/cas/oauth/token",
+			"preRequestScript": "",
+			"pathVariables": {},
+			"method": "POST",
+			"data": [
+				{
+					"key": "grant_type",
+					"value": "password",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "username",
+					"value": "{{username}}",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "password",
+					"value": "{{password}}",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "urlencoded",
+			"version": 2,
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1439295708574,
+			"name": "1 - Get Token",
+			"description": "",
+			"collectionId": "8c363c34-3ceb-7f8a-9a0e-291aef8ece52"
+		},
+		{
+			"id": "fbce8b39-adc4-6885-76f4-f199c6771399",
+			"headers": "Authorization: Bearer {{token}}\n",
+			"url": "{{environment}}/user-profile/api/version",
+			"preRequestScript": "",
+			"pathVariables": {},
+			"method": "GET",
+			"data": [],
+			"dataMode": "params",
+			"version": 2,
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1438875468864,
+			"name": "2 - Hit Service",
+			"description": "",
+			"collectionId": "8c363c34-3ceb-7f8a-9a0e-291aef8ece52"
+		}
+	]
+}

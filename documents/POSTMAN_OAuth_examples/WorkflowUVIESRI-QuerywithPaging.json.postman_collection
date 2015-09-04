@@ -1,0 +1,94 @@
+{
+	"id": "f387ce82-8adb-c4ea-bebf-663e171e3f05",
+	"name": "Workflow: UVI ESRI - Query with Paging",
+	"timestamp": 1435163986074,
+	"order": [
+		"569a5648-dac3-6986-37c3-64d2cd93a2e6",
+		"5b03f2b7-6dab-2440-31ac-69e112580ef1",
+		"78826532-48a3-e3e1-84a9-754f26718ad4",
+		"a9abcfab-2c27-dbe4-e01d-76f4128013ba"
+	],
+	"owner": 0,
+	"hasRequests": true,
+	"requests": [
+		{
+			"id": "569a5648-dac3-6986-37c3-64d2cd93a2e6",
+			"headers": "Authorization: Bearer {{token}}\n",
+			"url": "{{environment}}/insight-vector/api/esri/query/geometries?q=highway&left=32.3964&right=37.2633&upper=42.631&lower=34.7208",
+			"preRequestScript": "",
+			"pathVariables": {},
+			"method": "GET",
+			"data": [],
+			"dataMode": "params",
+			"version": 2,
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1438954365698,
+			"name": "1. List Vector Geometry",
+			"description": "List the available vector geometry(ies) for a given query term and bounding box. Not required for other query calls.",
+			"collectionId": "f387ce82-8adb-c4ea-bebf-663e171e3f05"
+		},
+		{
+			"id": "5b03f2b7-6dab-2440-31ac-69e112580ef1",
+			"headers": "Authorization: Bearer {{token}}\n",
+			"url": "{{environment}}/insight-vector/api/esri/query/PolyLine/types?q=highway&left=32.3964&right=37.2633&upper=42.631&lower=34.7208",
+			"preRequestScript": "",
+			"pathVariables": {},
+			"method": "GET",
+			"data": [],
+			"dataMode": "params",
+			"version": 2,
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1438954370516,
+			"name": "2. List Vector Types",
+			"description": "List the available vector type(s) for a given geometry, query term, and bounding box. Not required for other query calls.",
+			"collectionId": "f387ce82-8adb-c4ea-bebf-663e171e3f05"
+		},
+		{
+			"id": "78826532-48a3-e3e1-84a9-754f26718ad4",
+			"headers": "Authorization: Bearer {{token}}\n",
+			"url": "{{environment}}/insight-vector/api/esri/query/PolyLine/Roads%20Local/paging?q=highway&left=32.3964&right=37.2633&upper=42.631&lower=34.7208&ttl=5m&count=500",
+			"preRequestScript": "",
+			"pathVariables": {},
+			"method": "GET",
+			"data": [],
+			"dataMode": "params",
+			"version": 2,
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1438954374987,
+			"name": "3. Get Paging ID",
+			"description": "Submit request for paging ID to be used for subsequent paging requests. Call based on geometry, vector type, and query.",
+			"collectionId": "f387ce82-8adb-c4ea-bebf-663e171e3f05"
+		},
+		{
+			"id": "a9abcfab-2c27-dbe4-e01d-76f4128013ba",
+			"headers": "Authorization: Bearer {{token}}\n",
+			"url": "{{environment}}/insight-vector/api/esri/paging",
+			"preRequestScript": "",
+			"pathVariables": {},
+			"method": "POST",
+			"data": [
+				{
+					"key": "pagingId",
+					"value": "Copy the pagingId from Get Paging ID here - no quotes",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "urlencoded",
+			"version": 2,
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1438954380467,
+			"name": "4. Retrieve Page of Vector Items",
+			"description": "Using Paging Id from Get Paging ID API call, retrieve a page of available vector items.",
+			"collectionId": "f387ce82-8adb-c4ea-bebf-663e171e3f05"
+		}
+	]
+}
