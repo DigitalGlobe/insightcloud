@@ -1,5 +1,7 @@
 package com.digitalglobe.insight.vector;
 
+import com.digitalglobe.insight.vector.client.VectorRestClient;
+import com.digitalglobe.insight.vector.client.VectorRestClientFactory;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONValue;
 
@@ -16,27 +18,13 @@ public class UploadVectorItems
 
     ServiceProperties props = new ServiceProperties( args[0] );
 
-    // authentication information
-    String authService = props.getAuthService();
-    String username = props.getUserName();
-    String password = props.getPassword();
-
     // the base URL for accessing the vector service
     String appService = props.getAppService();
     String urlBase = props.getUrlBase();
     String appBase = appService + urlBase;
 
         // set up the client
-    VectorRestClient client = new VectorRestClient();
-    client.setAuthService( authService );
-    client.setAppService( appService );
-
-    System.out.println( "Auth service: " + authService );
-    System.out.println( "App service: " + appService );
-    System.out.println( "App base: " + appBase );
-
-    System.out.println( "Authenticating with the application. . . ." );
-    client.authenticate( username, password );
+    VectorRestClient client = VectorRestClientFactory.getClient( props );
 
     // send a single item to upload
     System.out.println( "Sending single-item upload. . . .");
@@ -49,8 +37,8 @@ public class UploadVectorItems
         "        }," +
         "        \"properties\": {" +
         "            \"name\" : \"Jabberwocky\"," +
-        "            \"ingestSource\" : \"Test\"," +
-        "            \"itemType\" : \"Test item\"," +
+        "            \"ingest_source\" : \"Test\"," +
+        "            \"item_type\" : \"Test item\"," +
         "            \"text\" : \"'Twas brillig and the slithy toves. . . .\"," +
         "            \"source\" : \"Lewis Carroll\"," +
         "            \"attributes\" : {" +
@@ -78,8 +66,8 @@ public class UploadVectorItems
       "        }," +
       "        \"properties\": {" +
       "            \"name\" : \"Jabberwocky, line 1\"," +
-      "            \"ingestSource\" : \"Test\"," +
-      "            \"itemType\" : \"Test item\"," +
+      "            \"ingest_source\" : \"Test\"," +
+      "            \"item_type\" : \"Test item\"," +
       "            \"text\" : \"'Twas brillig and the slithy toves\"," +
       "            \"source\" : \"Lewis Carroll\"," +
       "            \"attributes\" : {" +
@@ -97,8 +85,8 @@ public class UploadVectorItems
       "        }," +
       "        \"properties\": {" +
       "            \"name\" : \"Jabberwocky, line 2\"," +
-      "            \"ingestSource\" : \"Test\"," +
-      "            \"itemType\" : \"Test item\"," +
+      "            \"ingest_source\" : \"Test\"," +
+      "            \"item_type\" : \"Test item\"," +
       "            \"text\" : \"did gyre and gimbel in the wabe\"," +
       "            \"source\" : \"Lewis Carroll\"," +
       "            \"attributes\" : {" +

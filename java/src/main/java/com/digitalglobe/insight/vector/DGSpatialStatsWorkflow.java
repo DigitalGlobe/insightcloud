@@ -5,6 +5,8 @@
  */
 package com.digitalglobe.insight.vector;
 
+import com.digitalglobe.insight.vector.client.VectorRestClient;
+import com.digitalglobe.insight.vector.client.VectorRestClientFactory;
 import com.google.gson.Gson;
 import com.vividsolutions.jts.geom.Coordinate;
 import com.vividsolutions.jts.geom.GeometryFactory;
@@ -40,23 +42,13 @@ public class DGSpatialStatsWorkflow {
 
       ServiceProperties props = new ServiceProperties(args[0]);
 
-      // authentication information
-      String authService = props.getAuthService();
-      String username = "un";
-      String password = "pw";
-
       // the base URL for accessing the vector service
       String appService = props.getAppService();
       String urlBase = props.getUrlBase();
       String appBase = appService + urlBase;
 
       // set up the client
-      VectorRestClient client = new VectorRestClient();
-      client.setAuthService(authService);
-      client.setAppService(appService);
-
-      System.out.println("Authenticating with the application. . . .");
-      client.authenticate(username, password);
+      VectorRestClient client = VectorRestClientFactory.getCasAuthenticatedClient( props );
 
       Gson gson = new Gson();
       SortedSet<String> cols = new TreeSet<>();
@@ -214,23 +206,13 @@ public class DGSpatialStatsWorkflow {
 
       ServiceProperties props = new ServiceProperties(args[0]);
 
-      // authentication information
-      String authService = props.getAuthService();
-      String username = "un";
-      String password = "pw";
-
       // the base URL for accessing the vector service
       String appService = props.getAppService();
       String urlBase = props.getUrlBase();
       String appBase = appService + urlBase;
 
       // set up the client
-      VectorRestClient client = new VectorRestClient();
-      client.setAuthService(authService);
-      client.setAppService(appService);
-
-      System.out.println("Authenticating with the application. . . .");
-      client.authenticate(username, password);
+      VectorRestClient client = VectorRestClientFactory.getCasAuthenticatedClient( props );
 
       Gson gson = new Gson();
       SortedSet<String> cols = new TreeSet<>();
