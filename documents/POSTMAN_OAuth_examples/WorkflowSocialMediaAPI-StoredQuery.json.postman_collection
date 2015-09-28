@@ -1,0 +1,72 @@
+{
+	"id": "3af709f3-c8a3-cac6-7c46-c1dddd269fa9",
+	"name": "Workflow: Social Media API - Stored Query",
+	"description": "",
+	"order": [
+		"2dfcae37-f248-fadd-7b9d-507a126e1568",
+		"0d75f233-079d-7618-5068-1d2ded750e4c",
+		"a7c2273f-4539-5f4a-40d7-c099a9948a94"
+	],
+	"folders": [],
+	"timestamp": 1436203376269,
+	"owner": 0,
+	"remoteLink": "",
+	"public": false,
+	"requests": [
+		{
+			"id": "0d75f233-079d-7618-5068-1d2ded750e4c",
+			"headers": "Authorization: Bearer {{token}}\n",
+			"url": "{{environment}}/user-profile/api/workspace",
+			"preRequestScript": "",
+			"pathVariables": {},
+			"method": "GET",
+			"data": [],
+			"dataMode": "params",
+			"version": 2,
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1438954271183,
+			"name": "2. Retrieve List of Stored Queries",
+			"description": "Returns list of previously stored queries.",
+			"collectionId": "3af709f3-c8a3-cac6-7c46-c1dddd269fa9"
+		},
+		{
+			"id": "2dfcae37-f248-fadd-7b9d-507a126e1568",
+			"headers": "Content-Type: application/json\nAuthorization: Bearer {{token}}\n",
+			"url": "{{environment}}/user-profile/api/workspace",
+			"preRequestScript": "",
+			"pathVariables": {},
+			"method": "POST",
+			"data": [],
+			"dataMode": "raw",
+			"version": 2,
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1438954265914,
+			"name": "1. Save New Query",
+			"description": "Appends the new query to the list of previously saved queries.",
+			"collectionId": "3af709f3-c8a3-cac6-7c46-c1dddd269fa9",
+			"rawModeData": "{\"time\":\"\",\"date\":1436282023170,\"map\":{\"left\":-78.22996445312472,\"right\":-75.92283554687509,\"top\":39.37567843423678,\"bottom\":38.371776448802834},\"zoom\":10,\"query\":\" hospitality\",\"timeline\":{\"start\":\"2015-07-07T03:00:00.000Z\",\"end\":\"2015-07-07T15:00:00.000Z\"},\"polygon\":[[{\"x\":-77.16017075195309,\"y\":38.997809121983714},{\"x\":-77.282393652344,\"y\":38.91878628916721},{\"x\":-77.06129379882839,\"y\":38.82255871109685},{\"x\":-76.94731064453126,\"y\":38.93694797992631},{\"x\":-77.16017075195309,\"y\":38.997809121983714}]],\"properties\":{\"InsightExplorer\":{\"exactGeo\":false}},\"name\":\"hospitality\"}"
+		},
+		{
+			"id": "a7c2273f-4539-5f4a-40d7-c099a9948a94",
+			"headers": "Authorization: Bearer {{token}}\n",
+			"url": "{{environment}}/user-profile/api/workspace?name=hospitality",
+			"preRequestScript": "",
+			"pathVariables": {},
+			"method": "DELETE",
+			"data": [],
+			"dataMode": "params",
+			"version": 2,
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1438954281117,
+			"name": "3. Delete Stored Query",
+			"description": "Removes the query from the list of previously saved queries.",
+			"collectionId": "3af709f3-c8a3-cac6-7c46-c1dddd269fa9"
+		}
+	]
+}

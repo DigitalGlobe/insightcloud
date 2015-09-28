@@ -1,0 +1,113 @@
+{
+	"id": "b3df4e99-cd3a-208b-3630-719454806e3f",
+	"name": "Workflow: UVI ESRI - Basic from Source with Paging",
+	"timestamp": 1435156768900,
+	"order": [
+		"b0510722-8d1e-d8da-f07e-05cc87d2c9d4",
+		"d6755bcc-74a8-2971-d4a6-cebaea6c7b47",
+		"890128b6-67e5-4d99-4a53-b70389bcc921",
+		"a3002bea-0764-910d-e39e-29cbb5d984bd",
+		"e93d0aba-b817-66d5-a02b-b0c4b8480f91"
+	],
+	"owner": 0,
+	"hasRequests": true,
+	"requests": [
+		{
+			"id": "890128b6-67e5-4d99-4a53-b70389bcc921",
+			"headers": "Authorization: Bearer {{token}}\n",
+			"url": "{{environment}}/insight-vector/api/esri/OSM/Point/types?left=32.3964&right=37.2633&upper=42.631&lower=34.7208",
+			"preRequestScript": "",
+			"pathVariables": {},
+			"method": "GET",
+			"data": [],
+			"dataMode": "params",
+			"version": 2,
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1438954322033,
+			"name": "3. List Vector Types",
+			"description": "Lists the available vector type(s) for a given geometry, vector index ingestion source, and bounding box.",
+			"collectionId": "b3df4e99-cd3a-208b-3630-719454806e3f"
+		},
+		{
+			"id": "a3002bea-0764-910d-e39e-29cbb5d984bd",
+			"headers": "Authorization: Bearer {{token}}\n",
+			"url": "{{environment}}/insight-vector/api/esri/OSM/Point/Tower/paging?left=32.3964&right=37.2633&upper=42.631&lower=34.7208&ttl=5m&count=500",
+			"preRequestScript": "",
+			"pathVariables": {},
+			"method": "GET",
+			"data": [],
+			"dataMode": "params",
+			"version": 2,
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1438954327931,
+			"name": "4. Get Paging ID",
+			"description": "Submit request for paging ID to be used for subsequent paging requests. Call based on source, geometry, and vector type.",
+			"collectionId": "b3df4e99-cd3a-208b-3630-719454806e3f"
+		},
+		{
+			"id": "b0510722-8d1e-d8da-f07e-05cc87d2c9d4",
+			"headers": "Authorization: Bearer {{token}}\n",
+			"url": "{{environment}}/insight-vector/api/esri/sources?left=32.3964&right=37.2633&upper=42.631&lower=34.7208",
+			"preRequestScript": "",
+			"pathVariables": {},
+			"method": "GET",
+			"data": [],
+			"dataMode": "params",
+			"version": 2,
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1438954310607,
+			"name": "1. List Vector Sources",
+			"description": "Lists the available vector index ingestion sources for a given bounding box.",
+			"collectionId": "b3df4e99-cd3a-208b-3630-719454806e3f"
+		},
+		{
+			"id": "d6755bcc-74a8-2971-d4a6-cebaea6c7b47",
+			"headers": "Authorization: Bearer {{token}}\n",
+			"url": "{{environment}}/insight-vector/api/esri/OSM/geometries?left=32.3964&right=37.2633&upper=42.631&lower=34.7208",
+			"preRequestScript": "",
+			"pathVariables": {},
+			"method": "GET",
+			"data": [],
+			"dataMode": "params",
+			"version": 2,
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1438954315184,
+			"name": "2. List Vector Geometry",
+			"description": "Lists the available vector geometry(ies) for a given vector index ingestion source and bounding box.",
+			"collectionId": "b3df4e99-cd3a-208b-3630-719454806e3f"
+		},
+		{
+			"id": "e93d0aba-b817-66d5-a02b-b0c4b8480f91",
+			"headers": "Authorization: Bearer {{token}}\n",
+			"url": "{{environment}}/insight-vector/api/esri/paging",
+			"preRequestScript": "",
+			"pathVariables": {},
+			"method": "POST",
+			"data": [
+				{
+					"key": "pagingId",
+					"value": "Copy the pagingId from Get Paging ID here - no quotes",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "urlencoded",
+			"version": 2,
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1438954332232,
+			"name": "5. Retrieve Page of Vector Items",
+			"description": "Using Paging Id from Get Paging ID API call, retrieve a page of available vector items.",
+			"collectionId": "b3df4e99-cd3a-208b-3630-719454806e3f"
+		}
+	]
+}

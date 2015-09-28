@@ -1,5 +1,6 @@
-package com.digitalglobe.insight.vector;
+package com.digitalglobe.insight.vector.client;
 
+import com.digitalglobe.insight.vector.ServiceProperties;
 import org.apache.commons.httpclient.Header;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.NameValuePair;
@@ -8,89 +9,40 @@ import org.apache.commons.httpclient.methods.DeleteMethod;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.methods.RequestEntity;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.JSONValue;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.OutputStream;
-import java.rmi.server.ExportException;
-import java.util.HashMap;
+import java.net.URLEncoder;
 import java.util.Map;
-import java.util.Properties;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
  * An example class showing possible ways of interacting with the UVI REST API
  */
-public class VectorRestClient
+public class CasAuthenticatedVectorRestClient implements VectorRestClient
 {
-  protected static final Logger log = LoggerFactory.getLogger( VectorRestClient.class );
-
-  public static class VectorPagingResponse
-  {
-    private int status;
-    private String body;
-    private String pageId;
-    private int itemCount;
-
-    public VectorPagingResponse( int status, String body, int itemCount, String pageId )
-    {
-      this.body = body;
-      this.itemCount = itemCount;
-      this.pageId = pageId;
-      this.status = status;
-    }
-
-    public String getBody()
-    {
-      return body;
-    }
-
-    public int getItemCount()
-    {
-      return itemCount;
-    }
-
-    public String getPageId()
-    {
-      return pageId;
-    }
-
-    public int getStatus()
-    {
-      return status;
-    }
-  }
+  protected static final Logger log = LoggerFactory.getLogger( CasAuthenticatedVectorRestClient.class );
 
   private String authService;
   private String appService;
   private String ticketGrantingTicket;
   private HttpClient httpClient = new HttpClient();
 
-  /**
-   * Sets the base URL for the application service
-   *
-   * @param appService the app service URL
-   */
-  public void setAppService( String appService )
+  public CasAuthenticatedVectorRestClient( ServiceProperties props )
+      throws IOException
   {
-    this.appService = appService;
-  }
+    // authentication information
+    this.authService = props.getAuthService();
+    String username = props.getUserName();
+    String password = props.getPassword();
 
-  /**
-   * Sets the base URL for the CAS auth service
-   *
-   * @param authService the CAS service URL
-   */
-  public void setAuthService( String authService )
-  {
-    this.authService = authService;
+    // the base URL for accessing the vector service
+    this.appService = props.getAppService();
+
+    System.out.println( "Authenticating with the CAS application. . . ." );
+    this.authenticate( username, password );
   }
 
   /**
@@ -200,6 +152,7 @@ public class VectorRestClient
    * @param url the URL to execute
    * @return a String holding the response body
    */
+  @Override
   public String executeGet( String url ) throws IOException
   {
     System.out.println( "Getting from URL: " + url );
@@ -230,6 +183,7 @@ public class VectorRestClient
    * @param body the body of the request to send
    * @return a String holding the response body
    */
+  @Override
   public String executePost( String url, String body ) throws IOException
   {
     System.out.println( "Posting to URL: " + url );
@@ -264,6 +218,7 @@ public class VectorRestClient
    * @param url the URL to execute
    * @return a String holding the response body
    */
+  @Override
   public String executeDelete( String url ) throws IOException
   {
     System.out.println( "Deleting from URL: " + url );
@@ -295,6 +250,7 @@ public class VectorRestClient
    * @param params the parameters to provide along with the request
    * @return information about the response
    */
+  @Override
   public VectorPagingResponse executePagingRequest( String url, Map<String, String> params ) throws IOException
   {
     System.out.println( "Posting to URL: " + url );
@@ -335,6 +291,7 @@ public class VectorRestClient
   /**
    * Logs out the client when work is complete.
    */
+  @Override
   public void logout()
   {
     DeleteMethod method = new DeleteMethod( this.authService + "/" + this.ticketGrantingTicket );
@@ -368,7 +325,7 @@ public class VectorRestClient
    * @param username the username with which to authenticate
    * @param password the username's password
    */
-  public void authenticate( String username, String password ) throws IOException
+  private void authenticate( String username, String password ) throws IOException
   {
     // get a ticket-granting ticket from CAS
     this.ticketGrantingTicket = this.getTicketGrantingTicket( authService, username, password );
@@ -387,130 +344,4 @@ public class VectorRestClient
     this.authenticateClient( appServiceAuthEndpoint, serviceTicket );
   }
 
-  /**
-   * Authenticates with the UVI, requests pages of items, executes another
-   * requests for non-paged items, then logs out from the application.
-   *
-   * @param args no args needed at this time
-   */
-  public static void main(String[] args) throws Exception
-  {
-    if ( args.length < 1 )
-    {
-      throw new RuntimeException( "Configuration file must be specified." );
-    }
-
-    ServiceProperties props = new ServiceProperties( args[0] );
-
-    // authentication information
-    String authService = props.getAuthService();
-    String username = props.getUserName();
-    String password = props.getPassword();
-
-    // the base URL for accessing the vector service
-    String appService = props.getAppService();
-    String urlBase = props.getUrlBase();
-    String appBase = appService + urlBase;
-
-    // set up the client
-    VectorRestClient client = new VectorRestClient();
-    client.setAuthService( authService );
-    client.setAppService( appService );
-
-    System.out.println( "Auth service: " + authService );
-    System.out.println( "App service: " + appService );
-    System.out.println( "App base: " + appBase );
-
-    System.out.println( "Authenticating with the application. . . ." );
-    client.authenticate( username, password );
-
-    // Set up a bounding box to search
-    String bboxParams = "left=-145.936399490872&upper=51.6307842812699"
-                        + "&right=-33.6258400156824&lower=19.2701146019781";
-
-    // assume we already know from previous requests that we want items from the
-    // "Gazeteer" (sic) source, with an "item_type" of "Airport", and which are
-    // a Point geometry
-
-    System.out.println( "Retrieving 'Point' items of type 'Airport' "
-                            + "from the 'Gazeteer' (sic) source." );
-
-    // initiate a paging request
-    String pagingRequest = appBase
-        + "/api/esri/Gazeteer/Point/Airport/paging"
-        + "?" + bboxParams
-        + "&ttl=1m&count=100";
-
-    // the paging request response should be JSON with a single field "pagingId"
-    // that pagingId is used in a follow-on request to retrieve the first page of items
-    String jsonString = client.executeGet( pagingRequest );
-    JSONObject json = (JSONObject) JSONValue.parse( jsonString );
-    String pageId = (String) json.get( "pagingId" );
-
-    // iterate through the pages, returning items in ESRI JSON format
-    String singlePageRequest = appBase + "/api/esri/paging";
-    boolean doRequest = true;
-    int itemTotal = 0;
-    while ( doRequest )
-    {
-      Map<String,String> params = new HashMap<>();
-      params.put( "ttl", "5m" );
-      params.put( "fields", "attributes" );
-      params.put( "pagingId", pageId );
-
-      VectorPagingResponse response = client.executePagingRequest( singlePageRequest, params );
-      System.out.println( "Page item count: " + response.getItemCount() );
-      itemTotal += response.getItemCount();
-      System.out.println( "Total so far: " + itemTotal );
-      pageId = response.getPageId();
-
-      // if we needed to, we could parse the JSON and do something with the items
-      // JSONObject itemJson = (JSONObject) JSONValue.parse( response.getBody() );
-
-      // when a paging request returns 0 items, there are no more items to return
-      doRequest = ( response.getItemCount() > 0 );
-    }
-
-    // ========================================================================
-    // NOTE: you can make multiple calls using the same client instance. . . .
-
-    System.out.println( "Querying for type 'School' matching the keyword "
-                        + "'technical' in the same bounding box. . . .");
-
-    // Query for items with text matching "technical" in the same bounding box
-    // returning 500 items in GeoJSON format with only the name and geometry
-    // returned for each item.
-    String queryRequest = appBase
-        + "/api/vectors/query/items"
-        + "?" + bboxParams + "&q=technical&count=500";
-
-    // when we get a collection of items it's a JSON array
-    String itemsJson = client.executeGet( queryRequest );
-    JSONArray items = (JSONArray) JSONValue.parse( itemsJson );
-    System.out.println( "Returned " + items.size() + " items." );
-
-    for ( Object item : items )
-    {
-      JSONObject i = (JSONObject) item;
-      System.out.println( "----------------------------------------------");
-      // Get the item ID and print it
-      String id = ( (JSONObject) i.get( "properties" ) ).get( "id" ).toString();
-      System.out.println( "ID: " + id );
-
-      // Get the item geometry and print it
-      JSONObject geom = (JSONObject) i.get( "geometry" );
-      System.out.println( "Geometry: " + geom );
-
-      // Get the item attributes and print them
-      System.out.println( "Attributes:" );
-      JSONObject itemAttributes = (JSONObject) ( (JSONObject) i.get( "properties" ) ).get( "attributes" );
-      for ( Object key : itemAttributes.keySet() )
-      {
-        System.out.println( "\t" + key + ": " + itemAttributes.get( key ) );
-      }
-    }
-
-    // logout from CAS
-    client.logout();
-  }
 }

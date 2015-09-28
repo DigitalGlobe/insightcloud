@@ -1,0 +1,49 @@
+{
+	"id": "b9decc57-ca84-54ef-1069-da7ccdcb2b55",
+	"name": "Aggregation API calls",
+	"timestamp": 1435244988179,
+	"order": [
+		"1524f964-86c8-de8c-0d3c-55021680c263",
+		"9eba4566-e17f-b1a9-caa7-eea20d5c272f"
+	],
+	"owner": 0,
+	"hasRequests": true,
+	"requests": [
+		{
+			"id": "1524f964-86c8-de8c-0d3c-55021680c263",
+			"headers": "Authorization: Bearer {{token}}\n",
+			"url": "{{environment}}/insight-vector/api/aggs/sources/binned?north=42.631&east=37.2633&south=34.7208&west=32.3964&binCountX=1&binCountY=2",
+			"preRequestScript": "",
+			"pathVariables": {},
+			"method": "GET",
+			"data": [],
+			"dataMode": "params",
+			"version": 2,
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1438876729987,
+			"name": "List Vector Sources (binned)",
+			"description": "List available sources for a given bounding box. Cannot exceed 20 bins.",
+			"collectionId": "b9decc57-ca84-54ef-1069-da7ccdcb2b55"
+		},
+		{
+			"id": "9eba4566-e17f-b1a9-caa7-eea20d5c272f",
+			"headers": "Authorization: Bearer {{token}}\n",
+			"url": "{{environment}}/insight-vector/api/aggs/sources?north=42.631&east=37.2633&south=34.7208&west=32.3964",
+			"preRequestScript": "",
+			"pathVariables": {},
+			"method": "GET",
+			"data": [],
+			"dataMode": "params",
+			"version": 2,
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1438879593557,
+			"name": "List Vector Sources",
+			"description": "List available ingestion sources for a given bounding box.",
+			"collectionId": "b9decc57-ca84-54ef-1069-da7ccdcb2b55"
+		}
+	]
+}

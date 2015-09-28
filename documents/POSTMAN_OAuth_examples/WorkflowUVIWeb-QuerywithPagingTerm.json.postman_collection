@@ -1,0 +1,56 @@
+{
+	"id": "9954ed37-21d0-a8a3-1157-6bc7be474a28",
+	"name": "Workflow: UVI Web - Query with Paging: Term",
+	"timestamp": 1435238677667,
+	"order": [
+		"01893345-e612-d5d6-a53f-75e6ba4a683b",
+		"1e9a5ed9-1fa9-eab6-a6e9-aeb05d8b63c9"
+	],
+	"owner": 0,
+	"hasRequests": true,
+	"requests": [
+		{
+			"id": "01893345-e612-d5d6-a53f-75e6ba4a683b",
+			"headers": "Authorization: Bearer {{token}}\n",
+			"url": "{{environment}}/insight-vector/api/vectors/query/paging?q=building&left=32.3964&right=37.2633&upper=42.631&lower=34.7208&ttl=5m&count=500",
+			"preRequestScript": "",
+			"pathVariables": {},
+			"method": "GET",
+			"data": [],
+			"dataMode": "params",
+			"version": 2,
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1438954464823,
+			"name": "1. Get Paging ID",
+			"description": "Submit request for paging ID to be used for subsequent paging requests. Call based on query term.",
+			"collectionId": "9954ed37-21d0-a8a3-1157-6bc7be474a28"
+		},
+		{
+			"id": "1e9a5ed9-1fa9-eab6-a6e9-aeb05d8b63c9",
+			"headers": "Authorization: Bearer {{token}}\n",
+			"url": "{{environment}}/insight-vector/api/vectors/paging",
+			"preRequestScript": "",
+			"pathVariables": {},
+			"method": "POST",
+			"data": [
+				{
+					"key": "pagingId",
+					"value": "Copy the pagingId from Get Paging ID here - no quotes",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "urlencoded",
+			"version": 2,
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1441029276760,
+			"name": "2. Retrieve Page of Vector Items",
+			"description": "Using Paging Id from Get Paging ID API call, retrieve a page of available vector items.",
+			"collectionId": "9954ed37-21d0-a8a3-1157-6bc7be474a28"
+		}
+	]
+}

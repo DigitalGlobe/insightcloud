@@ -1,0 +1,97 @@
+{
+	"id": "711ade18-1d6d-aff0-4138-86776313e928",
+	"name": "Workflow: UVI Web - Basic from Source with Paging",
+	"description": "",
+	"order": [
+		"3a7142b3-aafe-ff7d-24c0-90ca7ce84385",
+		"838366dd-c524-a9c4-c074-988c091a2f24",
+		"1bf927f6-7766-3cd2-af15-09c12719a56d",
+		"ed978e64-c855-79b2-2d99-8f392d09f745"
+	],
+	"folders": [],
+	"timestamp": 1434650201019,
+	"owner": 0,
+	"remoteLink": "",
+	"public": false,
+	"requests": [
+		{
+			"id": "1bf927f6-7766-3cd2-af15-09c12719a56d",
+			"headers": "Authorization: Bearer {{token}}\n",
+			"url": "{{environment}}/insight-vector/api/vectors/OSM/types?left=32.3964&right=37.2633&upper=42.631&lower=34.7208",
+			"preRequestScript": "",
+			"pathVariables": {},
+			"method": "GET",
+			"data": [],
+			"dataMode": "params",
+			"version": 2,
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1438954431521,
+			"name": "2. List Vector Types",
+			"description": "List all available vector types for a given ingestion source and bounding box.",
+			"collectionId": "711ade18-1d6d-aff0-4138-86776313e928"
+		},
+		{
+			"id": "3a7142b3-aafe-ff7d-24c0-90ca7ce84385",
+			"headers": "Authorization: Bearer {{token}}\n",
+			"url": "{{environment}}/insight-vector/api/vectors/sources?left=32.3964&right=37.2633&upper=42.631&lower=34.7208",
+			"preRequestScript": "",
+			"pathVariables": {},
+			"method": "GET",
+			"data": [],
+			"dataMode": "params",
+			"version": 2,
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1438954421065,
+			"name": "1. List Vector Sources",
+			"description": "Lists the available vector index ingestion sources for a given bounding box.",
+			"collectionId": "711ade18-1d6d-aff0-4138-86776313e928"
+		},
+		{
+			"id": "838366dd-c524-a9c4-c074-988c091a2f24",
+			"headers": "Authorization: Bearer {{token}}\n",
+			"url": "{{environment}}/insight-vector/api/vectors/OSM/Building/paging?left=32.3964&right=37.2633&upper=42.631&lower=34.7208&ttl=5m&count=500",
+			"preRequestScript": "",
+			"pathVariables": {},
+			"method": "GET",
+			"data": [],
+			"dataMode": "params",
+			"version": 2,
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1438954425561,
+			"name": "3. Get Paging ID",
+			"description": "Submit request for paging ID to be used for subsequent paging requests.",
+			"collectionId": "711ade18-1d6d-aff0-4138-86776313e928"
+		},
+		{
+			"id": "ed978e64-c855-79b2-2d99-8f392d09f745",
+			"headers": "Authorization: Bearer {{token}}\n",
+			"url": "{{environment}}/insight-vector/api/vectors/paging",
+			"preRequestScript": "",
+			"pathVariables": {},
+			"method": "POST",
+			"data": [
+				{
+					"key": "pagingId",
+					"value": "Copy the pagingId from Get Paging ID here - no quotes",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "urlencoded",
+			"version": 2,
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1438954436019,
+			"name": "4. Retrieve Page of Vector Items",
+			"description": "Using Paging Id from Get Paging ID API call, retrieve a page of available vector items.",
+			"collectionId": "711ade18-1d6d-aff0-4138-86776313e928"
+		}
+	]
+}
