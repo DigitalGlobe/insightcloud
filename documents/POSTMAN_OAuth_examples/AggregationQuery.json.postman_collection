@@ -1,0 +1,54 @@
+{
+	"id": "8018d901-a7ab-092d-6d77-95a85c4de042",
+	"name": "Aggregation Query",
+	"description": "",
+	"order": [
+		"1c804f8e-0adb-a1fd-cbb2-5f0c57323da2",
+		"a3a2bbb4-0c5c-ab2c-984e-f49ba680ce4b"
+	],
+	"folders": [],
+	"timestamp": 1443528225304,
+	"owner": 0,
+	"remoteLink": "",
+	"public": false,
+	"requests": [
+		{
+			"id": "1c804f8e-0adb-a1fd-cbb2-5f0c57323da2",
+			"headers": "Authorization: Bearer {{token}}\n",
+			"url": "{{environment}}/insight-vector/api/aggregation?aggs=geohash:4;cardinality:ingest_source&left=-79&right=-77&upper=38&lower=36",
+			"preRequestScript": "",
+			"pathVariables": {},
+			"method": "GET",
+			"data": [],
+			"dataMode": "params",
+			"version": 2,
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1443533073825,
+			"name": "Query - basic",
+			"description": "Performs aggregations on a document set within the given bounding box. Basic call, with no optional parameters.",
+			"collectionId": "8018d901-a7ab-092d-6d77-95a85c4de042",
+			"responses": []
+		},
+		{
+			"id": "a3a2bbb4-0c5c-ab2c-984e-f49ba680ce4b",
+			"headers": "Authorization: Bearer {{token}}\n",
+			"url": "{{environment}}/insight-vector/api/aggregation?aggs=geohash:4;date_hist:d;(terms:ingest_source,avg_geo_lat,avg_geo_lon)&query=item_type:tweet&left=-77.794631&right=-76.429580&upper=39.370370&lower=38.371776&startDate=2015-09-03T12:07:16.179Z&endDate=2015-09-07T20:07:16.208Z&count=5",
+			"preRequestScript": "",
+			"pathVariables": {},
+			"method": "GET",
+			"data": [],
+			"dataMode": "params",
+			"version": 2,
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1443531667991,
+			"name": "Query - all options",
+			"description": "Performs aggregations on a document set within the given bounding box. Using all optional parameters; ISO-8601 date range.",
+			"collectionId": "8018d901-a7ab-092d-6d77-95a85c4de042",
+			"responses": []
+		}
+	]
+}
