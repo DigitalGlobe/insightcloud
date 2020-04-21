@@ -1,0 +1,6 @@
+data_classification:
+  - company_proprietary
+
+poc:
+  - name: Team Ogopogo
+    email: ogopogo@maxar.com
